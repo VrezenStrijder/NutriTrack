@@ -473,3 +473,30 @@ python artifacts/smoke/ui.py has "加入今日餐次"
 
 - Android 的「检出 → 下载 → 拉起系统安装器」仍然只有模拟器上的失败路径验证（那台 AVD 没有网络），真机复验未做。
 - Windows 安装包 145 MB，本机网络上传 GitHub 时反复在 40–50 MB 处断开（`408 Upload body timed out` / `Connection was reset`），两个安装包改由维护者手动上传到 Release。APK 与 `update.json` 已由脚本传完。
+
+## 十三、第九轮：发布流程规范化（2026-11-04）
+
+### 13.1 改了什么
+
+| 项 | 内容 |
+| --- | --- |
+| 目标多选 | 把「平台 / 系统 / 架构 / 产物类型」收成一张 8 项的清单（`ReleaseTargets`），界面里勾选，命令行用 `--target`；默认勾三种真机形态 |
+| 一条流水线 | `ReleasePipeline` 串起打包 → 汇总 → 写清单 →（可选）上传，界面、命令行、一键脚本共用同一条 |
+| 清单改由 C# 生成 | 流水线手里有真实来源，不再从文件名反推；`tools/make-update-json.ps1` 转调 `--manifest-only` |
+| GitHub 上传 | 自建 REST 客户端（不用 `gh release upload`，它不报进度）；token 取 `GITHUB_TOKEN` 或 `gh auth token`；同名资产先删后传；清单提交回 main |
+| 一键脚本 | 界面按钮把当前勾选写成 `release-<版本>.ps1`，用 `Start-Process -Wait` 调发布器（WinExe 不等待，`&` 会立刻「完成」） |
+| 默认显示名 | 没填应用名时去掉宿主后缀：`NutriTrack.Desktop` → `NutriTrack`，电脑包与手机包文件名前缀一致 |
+
+### 13.2 验证
+
+| 项 | 结果 |
+| --- | --- |
+| 单元测试 | 671 通过（新增目标目录、定义校验、清单生成、脚本转义、上传请求序列共 22 条） |
+| 界面 | `artifacts/smoke/publisher-release.png`：左栏四个分组、目标清单默认勾选、底栏三个按钮都在 |
+| 脚本端到端 | 生成 `release4.ps1` → 运行 → 产出 `NutriTrack-0.3.0-windows10-x64-setup.exe`（145.4 MB）与 `update.json`（1 条、哈希与包一致） |
+| 上传 | 只有单测覆盖请求序列（建 Release → 传资产 → 提交清单）与进度回调；真实网络上传未跑（145 MB，交由维护者） |
+
+### 13.3 遗留
+
+- 上传进度的**观感**没有在真机上验证过：单测保证了回调会走到 100%，但网络抖动时的表现要等一次真实上传。
+- 一键脚本没有模拟「失败退出码」：`Start-Process` 的 `ExitCode` 判过了，但没造一个必失败的场景。

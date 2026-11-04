@@ -1,7 +1,29 @@
 {
-    "LatestVersion": "0.3.0",
-    "Version_Win7": "https://github.com/VrezenStrijder/NutriTrack/releases/download/v0.3.0/知食_NutriTrack-0.3.0-windows7-x64-setup.exe",
-    "Version_Win10": "https://github.com/VrezenStrijder/NutriTrack/releases/download/v0.3.0/知食_NutriTrack-0.3.0-windows10-x64-fdd-setup",
-    "ReleaseDate": "2026-11-04",
-    "UpdateLog": ""
+  "LatestVersion": "0.3.0",
+  "ReleaseDate": "2026-11-04",
+  "UpdateLog": "新增双端更新检测与自动更新（Windows 就地覆盖安装，Android 交给系统安装器）。发布包文件名不再带空格。桌面端提醒与更新提示改到屏幕右下角显示。设置页的软件更新移到在线数据源下方。",
+  "ReleasePage": "https://github.com/VrezenStrijder/NutriTrack/releases/latest",
+  "Assets": [
+    {
+      "Platform": "android",
+      "Architecture": "arm64",
+      "Url": "https://github.com/VrezenStrijder/NutriTrack/releases/download/v0.3.0/NutriTrack-0.3.0-android-arm64.apk",
+      "Sha256": "e7b8eb8768259f8aa2e9650770c1941bca1e9cf6da3c05192d585507a7142062",
+      "Size": 45640053
+    },
+    {
+      "Platform": "android",
+      "Architecture": "x64",
+      "Url": "https://github.com/VrezenStrijder/NutriTrack/releases/download/v0.3.0/NutriTrack-0.3.0-android-x64.apk",
+      "Sha256": "b0683aeccea322302ccfb5e4d3940023727e7c7f471f1e8249280b9c96e10bb7",
+      "Size": 47908874
+    },
+    {
+      "Platform": "windows10",
+      "Architecture": "x64",
+      "Url": "https://github.com/VrezenStrijder/NutriTrack/releases/download/v0.3.0/NutriTrack-0.3.0-windows10-x64-setup.exe",
+      "Sha256": "41a8df0f9a974438bd847174368b25cfb3ea1f4441263b82f68c9982e515f9b6",
+      "Size": 152457066
+    }
+  ]
 }

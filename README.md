@@ -78,13 +78,15 @@ dotnet test src/NutriTrack.Tests
 ```bash
 # Windows 安装包
 NutriTrack.Publisher --build --project src/NutriTrack.Desktop/NutriTrack.Desktop.csproj \
-  --out artifacts/installers --os windows10 --arch x64 --version 0.3.0 --name NutriTrack \
+  --out artifacts/installers --os windows10 --arch x64 --version 0.3.0 --name "知食 NutriTrack" \
   --stub src/NutriTrack.Setup/NutriTrack.Setup.csproj
 
 # Android，一次出两个 ABI
 NutriTrack.Publisher --build --family android --project src/NutriTrack.Android/NutriTrack.Android.csproj \
-  --out artifacts/android-release --arch arm64,x64 --format apk --version 0.3.0 --name NutriTrack
+  --out artifacts/android-release --arch arm64,x64 --format apk --version 0.3.0 --name "知食 NutriTrack"
 ```
+
+`--name` 是显示名，可以写中文；**文件名只取其中的英文部分**（上面两条产出的是 `NutriTrack-0.3.0-…`），因为 GitHub 上传时会把 asset 名里的中文前缀截掉，而 `update.json` 里的下载地址是按文件名拼的。
 
 版本号只有 `src/Directory.Build.props` 一个来源，Android 的 `versionCode` 由它派生（`主×10000 + 次×100 + 修订`）。
 

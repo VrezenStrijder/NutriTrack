@@ -12,18 +12,18 @@
       "Size": 45640053
     },
     {
-      "Platform": "android",
-      "Architecture": "x64",
-      "Url": "https://github.com/VrezenStrijder/NutriTrack/releases/download/v0.3.0/NutriTrack-0.3.0-android-x64.apk",
-      "Sha256": "b0683aeccea322302ccfb5e4d3940023727e7c7f471f1e8249280b9c96e10bb7",
-      "Size": 47908874
-    },
-    {
       "Platform": "windows10",
       "Architecture": "x64",
       "Url": "https://github.com/VrezenStrijder/NutriTrack/releases/download/v0.3.0/NutriTrack-0.3.0-windows10-x64-setup.exe",
       "Sha256": "41a8df0f9a974438bd847174368b25cfb3ea1f4441263b82f68c9982e515f9b6",
       "Size": 152457066
+    },
+    {
+      "Platform": "windows7",
+      "Architecture": "x64",
+      "Url": "https://github.com/VrezenStrijder/NutriTrack/releases/download/v0.3.0/NutriTrack-0.3.0-windows7-x64-setup.exe",
+      "Sha256": "f2eefe38882c8404b1d28c0ba6bb696ccfff96e8c95dec3c3fa0bccfe311ae6d",
+      "Size": 152457036
     }
   ]
 }

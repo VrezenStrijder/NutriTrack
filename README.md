@@ -76,17 +76,18 @@ dotnet test src/NutriTrack.Tests
 打发布包用仓库里的发布器（图形界面或命令行都行）：
 
 ```bash
-# Windows 安装包
-NutriTrack.Publisher --build --project src/NutriTrack.Desktop/NutriTrack.Desktop.csproj \
-  --out artifacts/installers --os windows10 --arch x64 --version 0.3.0 --name "知食 NutriTrack" \
-  --stub src/NutriTrack.Setup/NutriTrack.Setup.csproj
+# 一次发布：Windows + Android 真机包，并写出 update.json
+NutriTrack.Publisher --publish --version 0.3.0 --out artifacts/release \
+  --target windows10-x64-setup --target windows7-x64-setup --target android-arm64-apk \
+  --name "知食 NutriTrack" --notes "本次更新内容"
 
-# Android，一次出两个 ABI
-NutriTrack.Publisher --build --family android --project src/NutriTrack.Android/NutriTrack.Android.csproj \
-  --out artifacts/android-release --arch arm64,x64 --format apk --version 0.3.0 --name "知食 NutriTrack"
+# 再加 --upload 就会传到 GitHub Release 并把清单提交回 main
+NutriTrack.Publisher --publish ... --upload
 ```
 
-`--name` 是显示名，可以写中文；**文件名只取其中的英文部分**（上面两条产出的是 `NutriTrack-0.3.0-…`），因为 GitHub 上传时会把 asset 名里的中文前缀截掉，而 `update.json` 里的下载地址是按文件名拼的。
+`--name` 是显示名，可以写中文；**文件名只取其中的英文部分**（上面产出的是 `NutriTrack-0.3.0-…`），因为 GitHub 上传时会把 asset 名里的中文前缀截掉，而 `update.json` 里的下载地址是按文件名拼的。
+
+界面上的「生成一键脚本」会把当前勾选写成 `release-0.3.0.ps1`，参数与上面完全一致，双击即可重跑同一次发布。
 
 版本号只有 `src/Directory.Build.props` 一个来源，Android 的 `versionCode` 由它派生（`主×10000 + 次×100 + 修订`）。
 
